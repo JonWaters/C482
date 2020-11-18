@@ -1,4 +1,4 @@
-/**
+package model; /**
 * Supplied class Part.java 
  */
 
