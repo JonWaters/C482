@@ -12,6 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import model.InHouse;
+import model.Inventory;
+import model.Outsourced;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,6 +78,29 @@ public class AddPartController implements Initializable {
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
+        //Add new part
+        int id = Inventory.getNewPartId();
+        String name = partNameText.getText();
+        Double price = Double.parseDouble(partPriceText.getText());
+        int stock = Integer.parseInt(partInventoryText.getText());
+        int min = Integer.parseInt(partMinText.getText());
+        int max = Integer.parseInt(partMaxText.getText());
+        int machineId;
+        String companyName;
+
+        if (inHouseRadioButton.isSelected()) {
+            machineId = Integer.parseInt(partIdNameText.getText());
+            InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+            Inventory.addPart(newInHousePart);
+        } else if (outsouredRadioButton.isSelected()) {
+            companyName = partIdNameLabel.getText();
+            Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max, companyName);
+            Inventory.addPart(newOutsourcedPart);
+        } else {
+            //TODO: Add alert for missing part type selection.
+        }
+
+        //Return to main screen
         Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
