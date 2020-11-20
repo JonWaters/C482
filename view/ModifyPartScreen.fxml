@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -26,8 +27,11 @@
       <Label layoutX="99.0" layoutY="341.0" text="Price" />
       <Label layoutX="101.0" layoutY="390.0" text="Max" />
       <Label fx:id="partIdNameLabel" layoutX="98.0" layoutY="437.0" text="Label" />
-      <RadioButton fx:id="inHouseRadioButton" layoutX="231.0" layoutY="150.0" mnemonicParsing="false" onAction="#inHouseRadioButtonAction" text="In-House" />
-      <RadioButton fx:id="outsouredRadioButton" layoutX="374.0" layoutY="150.0" mnemonicParsing="false" onAction="#outsourcedRadioButtonAction" text="Outsourced" />
+      <RadioButton fx:id="inHouseRadioButton" layoutX="231.0" layoutY="150.0" mnemonicParsing="false" onAction="#inHouseRadioButtonAction" text="In-House">
+         <toggleGroup>
+            <ToggleGroup fx:id="tgPartType" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="outsouredRadioButton" layoutX="374.0" layoutY="150.0" mnemonicParsing="false" onAction="#outsourcedRadioButtonAction" text="Outsourced" toggleGroup="$tgPartType" />
       <TextField fx:id="partIdText" editable="false" layoutX="213.0" layoutY="201.0" />
       <TextField fx:id="partNameText" layoutX="213.0" layoutY="248.0" />
       <TextField fx:id="partInventoryText" layoutX="213.0" layoutY="292.0" />

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class ModifyPartController implements Initializable {
 
     @FXML
     private RadioButton inHouseRadioButton;
+
+    @FXML
+    private ToggleGroup tgPartType;
 
     @FXML
     private RadioButton outsouredRadioButton;
