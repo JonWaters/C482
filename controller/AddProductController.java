@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
+import model.Inventory;
 
 import java.io.IOException;
 import java.net.URL;
