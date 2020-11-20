@@ -8,6 +8,6 @@ import java.util.ResourceBundle;
 public class AddProductController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
 }
