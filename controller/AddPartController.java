@@ -78,7 +78,18 @@ public class AddPartController implements Initializable {
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
-        //Add new part
+        addNewPart();
+
+        //Return to main screen
+        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void addNewPart() {
+
         int id = Inventory.getNewPartId();
         String name = partNameText.getText();
         Double price = Double.parseDouble(partPriceText.getText());
@@ -92,20 +103,13 @@ public class AddPartController implements Initializable {
             machineId = Integer.parseInt(partIdNameText.getText());
             InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
             Inventory.addPart(newInHousePart);
-        } else if (outsouredRadioButton.isSelected()) {
+        }
+
+        if (outsouredRadioButton.isSelected()) {
             companyName = partIdNameLabel.getText();
             Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.addPart(newOutsourcedPart);
-        } else {
-            //TODO: Add alert for missing part type selection.
         }
-
-        //Return to main screen
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
     }
 
     @Override
