@@ -58,11 +58,7 @@ public class AddPartController implements Initializable {
     @FXML
     void cancelButtonAction(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        returnToMainScreen(event);
     }
 
     @FXML
@@ -80,7 +76,12 @@ public class AddPartController implements Initializable {
 
         addNewPart();
 
-        //Return to main screen
+        returnToMainScreen(event);
+
+    }
+
+    private void returnToMainScreen(ActionEvent event) throws IOException {
+
         Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
