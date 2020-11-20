@@ -28,6 +28,9 @@
                   <TableColumn fx:id="partPriceColumn" prefWidth="58.0" text="Price" />
                   <TableColumn prefWidth="177.0" text="Part Name" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <Button layoutX="332.0" layoutY="269.0" mnemonicParsing="false" onAction="#partDeleteAction" text="Delete" />
             <Button layoutX="268.0" layoutY="269.0" mnemonicParsing="false" onAction="#partModifyAction" text="Modify" />
@@ -47,6 +50,9 @@
                   <TableColumn fx:id="productPriceColumn" prefWidth="58.0" text="Price" />
                   <TableColumn prefWidth="177.0" text="Part Name" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <Button layoutX="332.0" layoutY="269.0" mnemonicParsing="false" onAction="#productDeleteAction" text="Delete" />
             <Button layoutX="264.0" layoutY="269.0" mnemonicParsing="false" onAction="#productModifyAction" text="Modify" />

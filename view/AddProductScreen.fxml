@@ -24,6 +24,9 @@
             <TableColumn fx:id="assocPartPriceColumn" prefWidth="58.0" text="Price" />
             <TableColumn prefWidth="177.0" text="Part Name" />
          </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <TableView fx:id="partTableView" layoutX="591.0" layoutY="101.0" prefHeight="186.0" prefWidth="361.0">
         <columns>
@@ -33,6 +36,9 @@
             <TableColumn fx:id="partPriceColumn" prefWidth="58.0" text="Price" />
             <TableColumn prefWidth="177.0" text="Part Name" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <TextField fx:id="partSearchText" layoutX="791.0" layoutY="56.0" onInputMethodTextChanged="#partSearchTextChanged" />
       <Label layoutX="732.0" layoutY="61.0" text="Search" />
