@@ -24,13 +24,17 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         //Add sample parts
-        InHouse tvScreen = new InHouse(1,"TV Screen", 300.00, 5, 1, 20,
+        int partId = Inventory.getNewPartId();
+        InHouse tvScreen = new InHouse(partId,"TV Screen", 300.00, 5, 1, 20,
                 101);
-        InHouse tvShell = new InHouse(2,"TV Shell", 100.00, 5, 1, 20,
+        partId = Inventory.getNewPartId();
+        InHouse tvShell = new InHouse(partId,"TV Shell", 100.00, 5, 1, 20,
                 101);
-        InHouse powerCord = new InHouse(3,"Power Cord", 2.99, 5, 1, 20,
+        partId = Inventory.getNewPartId();
+        InHouse powerCord = new InHouse(partId,"Power Cord", 2.99, 5, 1, 20,
                 101);
-        Outsourced remote = new Outsourced(4, "Remote Control",29.99, 50, 30,
+        partId = Inventory.getNewPartId();
+        Outsourced remote = new Outsourced(partId, "Remote Control",29.99, 50, 30,
                 100, "Panasonic");
         Inventory.addPart(tvScreen);
         Inventory.addPart(tvShell);
@@ -38,7 +42,8 @@ public class Main extends Application {
         Inventory.addPart(remote);
 
         //Add sample product
-        Product television = new Product(1, "LCD Television", 499.99, 20, 20,
+        int productId = Inventory.getNewProductId();
+        Product television = new Product(productId, "LCD Television", 499.99, 20, 20,
                 100);
         television.addAssociatedPart(tvScreen);
         television.addAssociatedPart(tvShell);
