@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
+import model.Part;
+import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,37 +25,37 @@ public class MainScreenController implements Initializable {
     private TextField partSearchText;
 
     @FXML
-    private TableView<?> partTableView;
+    private TableView<Part> partTableView;
 
     @FXML
-    private TableColumn<?, ?> partIdColumn;
+    private TableColumn<Part, Integer> partIdColumn;
 
     @FXML
-    private TableColumn<?, ?> partNameColumn;
+    private TableColumn<Part, String> partNameColumn;
 
     @FXML
-    private TableColumn<?, ?> partInventoryColumn;
+    private TableColumn<Part, Integer> partInventoryColumn;
 
     @FXML
-    private TableColumn<?, ?> partPriceColumn;
+    private TableColumn<Part, Double> partPriceColumn;
 
     @FXML
     private TextField productSearchText;
 
     @FXML
-    private TableView<?> productTableView;
+    private TableView<Product> productTableView;
 
     @FXML
-    private TableColumn<?, ?> productIdColumn;
+    private TableColumn<Product, Integer> productIdColumn;
 
     @FXML
-    private TableColumn<?, ?> productNameColumn;
+    private TableColumn<Product, String> productNameColumn;
 
     @FXML
-    private TableColumn<?, ?> productInventoryColumn;
+    private TableColumn<Product, Integer> productInventoryColumn;
 
     @FXML
-    private TableColumn<?, ?> productPriceColumn;
+    private TableColumn<Product, Double> productPriceColumn;
 
     @FXML
     void exitButtonAction(ActionEvent event) {
