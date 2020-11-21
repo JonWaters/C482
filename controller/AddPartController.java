@@ -64,32 +64,17 @@ public class AddPartController implements Initializable {
     @FXML
     void inHouseRadioButtonAction(ActionEvent event) {
 
+        setPartIdNameLabel();
     }
 
     @FXML
     void outsourcedRadioButtonAction(ActionEvent event) {
 
+        setPartIdNameLabel();
     }
 
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
-
-        addNewPart();
-
-        returnToMainScreen(event);
-
-    }
-
-    private void returnToMainScreen(ActionEvent event) throws IOException {
-
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private void addNewPart() {
 
         int id = Inventory.getNewPartId();
         String name = partNameText.getText();
@@ -111,10 +96,36 @@ public class AddPartController implements Initializable {
             Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max, companyName);
             Inventory.addPart(newOutsourcedPart);
         }
+
+        returnToMainScreen(event);
+
+    }
+
+    private void returnToMainScreen(ActionEvent event) throws IOException {
+
+        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void setPartIdNameLabel(){
+
+        partIdNameLabel.setText("Part Type");
+
+        if (inHouseRadioButton.isSelected()) {
+            partIdNameLabel.setText("Machine ID");
+        }
+
+        if (outsouredRadioButton.isSelected()) {
+            partIdNameLabel.setText("Company Name");
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        inHouseRadioButton.setSelected(true);
     }
 }
