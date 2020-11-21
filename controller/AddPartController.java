@@ -64,13 +64,13 @@ public class AddPartController implements Initializable {
     @FXML
     void inHouseRadioButtonAction(ActionEvent event) {
 
-        setPartIdNameLabel();
+        partIdNameLabel.setText("Machine ID");
     }
 
     @FXML
     void outsourcedRadioButtonAction(ActionEvent event) {
 
-        setPartIdNameLabel();
+        partIdNameLabel.setText("Company Name");
     }
 
     @FXML
@@ -108,19 +108,6 @@ public class AddPartController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-    }
-
-    private void setPartIdNameLabel(){
-
-        partIdNameLabel.setText("Part Type");
-
-        if (inHouseRadioButton.isSelected()) {
-            partIdNameLabel.setText("Machine ID");
-        }
-
-        if (outsouredRadioButton.isSelected()) {
-            partIdNameLabel.setText("Company Name");
-        }
     }
 
     @Override
