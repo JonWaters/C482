@@ -73,29 +73,45 @@ public class AddPartController implements Initializable {
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
-        int id = Inventory.getNewPartId();
-        String name = partNameText.getText();
-        Double price = Double.parseDouble(partPriceText.getText());
-        int stock = Integer.parseInt(partInventoryText.getText());
-        int min = Integer.parseInt(partMinText.getText());
-        int max = Integer.parseInt(partMaxText.getText());
-        int machineId;
-        String companyName;
+        try {
+            int id = Inventory.getNewPartId();
+            String name = partNameText.getText();
+            Double price = Double.parseDouble(partPriceText.getText());
+            int stock = Integer.parseInt(partInventoryText.getText());
+            int min = Integer.parseInt(partMinText.getText());
+            int max = Integer.parseInt(partMaxText.getText());
+            int machineId;
+            String companyName;
+            boolean partAddSuccessful = false;
 
-        if (inHouseRadioButton.isSelected()) {
-            machineId = Integer.parseInt(partIdNameText.getText());
-            InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
-            Inventory.addPart(newInHousePart);
+            if (minValid(min, max) && inventoryValid(min, max, stock)) {
+
+                if (inHouseRadioButton.isSelected()) {
+                    try {
+                        machineId = Integer.parseInt(partIdNameText.getText());
+                        InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+                        Inventory.addPart(newInHousePart);
+                        partAddSuccessful = true;
+                    } catch (Exception e) {
+                        displayAlert(2);
+                    }
+                }
+
+                if (outsouredRadioButton.isSelected()) {
+                    companyName = partIdNameText.getText();
+                    Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max,
+                            companyName);
+                    Inventory.addPart(newOutsourcedPart);
+                    partAddSuccessful = true;
+                }
+
+                if (partAddSuccessful) {
+                    returnToMainScreen(event);
+                }
+            }
+        } catch(Exception e) {
+            displayAlert(1);
         }
-
-        if (outsouredRadioButton.isSelected()) {
-            companyName = partIdNameLabel.getText();
-            Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max, companyName);
-            Inventory.addPart(newOutsourcedPart);
-        }
-
-        returnToMainScreen(event);
-
     }
 
     private void returnToMainScreen(ActionEvent event) throws IOException {
@@ -107,35 +123,57 @@ public class AddPartController implements Initializable {
         stage.show();
     }
 
+    private boolean minValid(int min, int max) {
+
+        boolean isValid = true;
+
+        if (min <= 0 || min >= max) {
+            isValid = false;
+            displayAlert(3);
+        }
+
+        return isValid;
+    }
+
+    private boolean inventoryValid(int min, int max, int stock) {
+
+        boolean isValid = true;
+
+        if (stock < min || stock > max) {
+            isValid = false;
+            displayAlert(4);
+        }
+
+        return isValid;
+    }
+
     private void displayAlert(int alertType) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
 
         switch (alertType) {
             case 1:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Error Adding Part");
                 alert.setContentText("Form contains blank fields or invalid values.");
                 alert.showAndWait();
                 break;
             case 2:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid value for Machine ID");
                 alert.setContentText("Machine ID may only contain numbers.");
                 alert.showAndWait();
                 break;
             case 3:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid value for Min");
                 alert.setContentText("Min must be a number greater than 1 and less than Max.");
                 alert.showAndWait();
                 break;
             case 4:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid value for Inventory");
-                alert.setContentText("Inventory must be a number between Min and Max");
+                alert.setContentText("Inventory must be a number equal to or between Min and Max");
                 alert.showAndWait();
                 break;
         }
