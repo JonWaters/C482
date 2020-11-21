@@ -92,9 +92,16 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void partSearchTextChanged(InputMethodEvent event) {
+    void partResetBtnAction(ActionEvent event) {
 
     }
+
+    @FXML
+    void partSearchBtnAction(ActionEvent event) {
+
+    }
+
+
 
     @FXML
     void productAddAction(ActionEvent event) throws IOException {
@@ -122,7 +129,12 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void productSearchTextChanged(InputMethodEvent event) {
+    void productResetBtnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void productSearchBtnAction(ActionEvent event) {
 
     }
 
