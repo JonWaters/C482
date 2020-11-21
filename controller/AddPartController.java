@@ -6,11 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import model.InHouse;
 import model.Inventory;
@@ -108,6 +105,40 @@ public class AddPartController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void displayAlert(int alertType) {
+
+        switch (alertType) {
+            case 1:
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error Adding Part");
+                alert.setContentText("Form contains blank fields or invalid values.");
+                alert.showAndWait();
+                break;
+            case 2:
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Machine ID");
+                alert.setContentText("Machine ID may only contain numbers.");
+                alert.showAndWait();
+                break;
+            case 3:
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Min");
+                alert.setContentText("Min must be a number greater than 1 and less than Max.");
+                alert.showAndWait();
+                break;
+            case 4:
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Inventory");
+                alert.setContentText("Inventory must be a number between Min and Max");
+                alert.showAndWait();
+                break;
+        }
     }
 
     @Override
