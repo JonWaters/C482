@@ -123,7 +123,10 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    @FXML
+    void partSearchTextChanged(InputMethodEvent event) {
 
+    }
 
     @FXML
     void productAddAction(ActionEvent event) throws IOException {
@@ -177,6 +180,11 @@ public class MainScreenController implements Initializable {
         if (productsFound.size() == 0) {
             displayAlert(2);
         }
+    }
+
+    @FXML
+    void productSearchTextChanged(InputMethodEvent event) {
+
     }
 
     private void displayAlert(int alertType) {
