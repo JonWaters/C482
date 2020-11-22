@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
@@ -95,14 +96,6 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void partResetBtnAction(ActionEvent event) {
-
-        partTableView.setItems(Inventory.getAllParts());
-
-        partSearchText.clear();
-    }
-
-    @FXML
     void partSearchBtnAction(ActionEvent event) {
 
         ObservableList<Part> allParts = Inventory.getAllParts();
@@ -125,6 +118,19 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void partSearchTextChanged(InputMethodEvent event) {
+
+        System.out.println("Search text changed event");
+        if (partSearchText.getText().isEmpty()) {
+            partTableView.setItems(Inventory.getAllParts());
+        }
+    }
+
+    @FXML
+    void partSearchTextKeyPressed(KeyEvent event) {
+
+        if (partSearchText.getText().isEmpty()) {
+            partTableView.setItems(Inventory.getAllParts());
+        }
 
     }
 
@@ -154,14 +160,6 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void productResetBtnAction(ActionEvent event) {
-
-        productTableView.setItems(Inventory.getAllProducts());
-
-        productSearchText.clear();
-    }
-
-    @FXML
     void productSearchBtnAction(ActionEvent event) {
 
         ObservableList<Product> allProducts = Inventory.getAllProducts();
@@ -183,8 +181,11 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void productSearchTextChanged(InputMethodEvent event) {
+    void productSearchTextKeyPressed(KeyEvent event) {
 
+        if (productSearchText.getText().isEmpty()) {
+            productTableView.setItems(Inventory.getAllProducts());
+        }
     }
 
     private void displayAlert(int alertType) {

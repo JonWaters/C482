@@ -17,7 +17,7 @@
       </Label>
       <AnchorPane layoutX="63.0" layoutY="153.0" prefHeight="310.0" prefWidth="410.0" style="-fx-border-color: gray; -fx-border-radius: 20;">
          <children>
-            <TextField fx:id="partSearchText" layoutX="225.0" layoutY="23.0" onInputMethodTextChanged="#partSearchTextChanged" />
+            <TextField fx:id="partSearchText" layoutX="225.0" layoutY="23.0" onKeyPressed="#partSearchTextKeyPressed" />
             <Label layoutX="22.0" layoutY="28.0" style="-fx-font-weight: bold;" text="Parts" />
             <TableView fx:id="partTableView" layoutX="25.0" layoutY="70.0" prefHeight="186.0" prefWidth="361.0">
               <columns>
@@ -38,7 +38,7 @@
       </AnchorPane>
       <AnchorPane layoutX="558.0" layoutY="153.0" prefHeight="310.0" prefWidth="410.0" style="-fx-border-color: gray; -fx-border-radius: 20;">
          <children>
-            <TextField fx:id="productSearchText" layoutX="225.0" layoutY="22.0" onInputMethodTextChanged="#productSearchTextChanged" />
+            <TextField fx:id="productSearchText" layoutX="225.0" layoutY="22.0" onKeyPressed="#productSearchTextKeyPressed" />
             <Label layoutX="25.0" layoutY="27.0" style="-fx-font-weight: bold;" text="Products" />
             <TableView fx:id="productTableView" layoutX="25.0" layoutY="70.0" prefHeight="186.0" prefWidth="361.0">
                <columns>
