@@ -28,7 +28,7 @@ public class MainScreenController implements Initializable {
 
     private static Part partToModify;
 
-    private static Product productToModify
+    private static Product productToModify;
 
     @FXML
     private TextField partSearchText;
