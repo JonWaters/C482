@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
@@ -24,6 +21,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -83,6 +81,16 @@ public class MainScreenController implements Initializable {
     @FXML
     void partDeleteAction(ActionEvent event) {
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert");
+        alert.setContentText("Do you want to delete the selected part?");
+        Optional<ButtonType> result = alert.showAndWait();
+        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Inventory.deletePart(selectedPart);
+        }
+
     }
 
     @FXML
@@ -117,15 +125,6 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void partSearchTextChanged(InputMethodEvent event) {
-
-        System.out.println("Search text changed event");
-        if (partSearchText.getText().isEmpty()) {
-            partTableView.setItems(Inventory.getAllParts());
-        }
-    }
-
-    @FXML
     void partSearchTextKeyPressed(KeyEvent event) {
 
         if (partSearchText.getText().isEmpty()) {
@@ -146,6 +145,16 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void productDeleteAction(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert");
+        alert.setContentText("Do you want to delete the selected product?");
+        Optional<ButtonType> result = alert.showAndWait();
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Inventory.deleteProduct(selectedProduct);
+        }
 
     }
 
