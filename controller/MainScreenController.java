@@ -26,6 +26,10 @@ import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
 
+    private static Part partToModify;
+
+    private static Product productToModify
+
     @FXML
     private TextField partSearchText;
 
@@ -62,6 +66,14 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPriceColumn;
 
+    public static Part getPartToModify() {
+        return partToModify;
+    }
+
+    public static Product getProductToModify() {
+        return productToModify;
+    }
+
     @FXML
     void exitButtonAction(ActionEvent event) {
 
@@ -95,6 +107,8 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void partModifyAction(ActionEvent event) throws IOException {
+
+        partToModify = partTableView.getSelectionModel().getSelectedItem();
 
         Parent parent = FXMLLoader.load(getClass().getResource("../view/ModifyPartScreen.fxml"));
         Scene scene = new Scene(parent);
@@ -160,6 +174,8 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void productModifyAction(ActionEvent event) throws IOException {
+
+        productToModify = productTableView.getSelectionModel().getSelectedItem();
 
         Parent parent = FXMLLoader.load(getClass().getResource("../view/ModifyProductScreen.fxml"));
         Scene scene = new Scene(parent);
