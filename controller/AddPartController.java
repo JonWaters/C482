@@ -12,9 +12,11 @@ import javafx.stage.Stage;
 import model.InHouse;
 import model.Inventory;
 import model.Outsourced;
+import model.Part;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddPartController implements Initializable {
@@ -55,7 +57,14 @@ public class AddPartController implements Initializable {
     @FXML
     void cancelButtonAction(ActionEvent event) throws IOException {
 
-        returnToMainScreen(event);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert");
+        alert.setContentText("Do you want cancel changes and return to the main screen?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            returnToMainScreen(event);
+        }
     }
 
     @FXML
