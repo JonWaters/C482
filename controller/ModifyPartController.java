@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import model.InHouse;
+import model.Inventory;
 import model.Outsourced;
 import model.Part;
 
@@ -79,11 +80,46 @@ public class ModifyPartController implements Initializable {
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        try {
+            int id = selectedPart.getId();
+            String name = partNameText.getText();
+            Double price = Double.parseDouble(partPriceText.getText());
+            int stock = Integer.parseInt(partInventoryText.getText());
+            int min = Integer.parseInt(partMinText.getText());
+            int max = Integer.parseInt(partMaxText.getText());
+            int machineId;
+            String companyName;
+            boolean partAddSuccessful = false;
+
+            if (minValid(min, max) && inventoryValid(min, max, stock)) {
+
+                if (inHouseRadioButton.isSelected()) {
+                    try {
+                        machineId = Integer.parseInt(partIdNameText.getText());
+                        InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+                        Inventory.addPart(newInHousePart);
+                        partAddSuccessful = true;
+                    } catch (Exception e) {
+                        displayAlert(2);
+                    }
+                }
+
+                if (outsourcedRadioButton.isSelected()) {
+                    companyName = partIdNameText.getText();
+                    Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max,
+                            companyName);
+                    Inventory.addPart(newOutsourcedPart);
+                    partAddSuccessful = true;
+                }
+
+                if (partAddSuccessful) {
+                    Inventory.deletePart(selectedPart);
+                    returnToMainScreen(event);
+                }
+            }
+        } catch(Exception e) {
+            displayAlert(1);
+        }
     }
 
     private void returnToMainScreen(ActionEvent event) throws IOException {
