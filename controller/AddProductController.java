@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 
 public class AddProductController implements Initializable {
 
+    private ObservableList<Part> assocParts = FXCollections.observableArrayList();
+
     @FXML
     private TableView<Part> assocPartTableView;
 
@@ -79,6 +81,15 @@ public class AddProductController implements Initializable {
 
     @FXML
     void addButtonAction(ActionEvent event) {
+
+        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedPart == null) {
+            displayAlert(5);
+        } else {
+            assocParts.add(selectedPart);
+            assocPartTableView.setItems(assocParts);
+        }
 
     }
 
@@ -196,6 +207,11 @@ public class AddProductController implements Initializable {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid value for Inventory");
                 alert.setContentText("Inventory must be a number equal to or between Min and Max");
+                alert.showAndWait();
+                break;
+            case 5:
+                alert.setTitle("Error");
+                alert.setHeaderText("Part not selected");
                 alert.showAndWait();
                 break;
         }
