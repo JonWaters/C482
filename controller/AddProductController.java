@@ -11,10 +11,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Inventory;
+import model.Part;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,34 +25,34 @@ import java.util.ResourceBundle;
 public class AddProductController implements Initializable {
 
     @FXML
-    private TableView<?> assocPartTableView;
+    private TableView<Part> assocPartTableView;
 
     @FXML
-    private TableColumn<?, ?> assocPartIdColumn;
+    private TableColumn<Part, Integer> assocPartIdColumn;
 
     @FXML
-    private TableColumn<?, ?> assocPartNameColumn;
+    private TableColumn<Part, String> assocPartNameColumn;
 
     @FXML
-    private TableColumn<?, ?> assocPartInventoryColumn;
+    private TableColumn<Part, Integer> assocPartInventoryColumn;
 
     @FXML
-    private TableColumn<?, ?> assocPartPriceColumn;
+    private TableColumn<Part, Double> assocPartPriceColumn;
 
     @FXML
-    private TableView<?> partTableView;
+    private TableView<Part> partTableView;
 
     @FXML
-    private TableColumn<?, ?> partIdColumn;
+    private TableColumn<Part, Integer> partIdColumn;
 
     @FXML
-    private TableColumn<?, ?> partNameColumn;
+    private TableColumn<Part, String> partNameColumn;
 
     @FXML
-    private TableColumn<?, ?> partInventoryColumn;
+    private TableColumn<Part, Integer> partInventoryColumn;
 
     @FXML
-    private TableColumn<?, ?> partPriceColumn;
+    private TableColumn<Part, Double> partPriceColumn;
 
     @FXML
     private TextField partSearchText;
@@ -144,6 +146,7 @@ public class AddProductController implements Initializable {
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
 
         switch (alertType) {
             case 1:
@@ -153,10 +156,10 @@ public class AddProductController implements Initializable {
                 alert.showAndWait();
                 break;
             case 2:
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid value for Machine ID");
+                alertInfo.setTitle("Error");
+                alertInfo.setHeaderText("Invalid value for Machine ID");
                 alert.setContentText("Machine ID may only contain numbers.");
-                alert.showAndWait();
+                alertInfo.showAndWait();
                 break;
             case 3:
                 alert.setTitle("Error");
@@ -175,6 +178,17 @@ public class AddProductController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        partTableView.setItems(Inventory.getAllParts());
+
+        assocPartIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        assocPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        assocPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        assocPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 }
