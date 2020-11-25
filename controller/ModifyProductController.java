@@ -85,6 +85,14 @@ public class ModifyProductController implements Initializable {
     @FXML
     void addButtonAction(ActionEvent event) {
 
+        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedPart == null) {
+            displayAlert(5);
+        } else {
+            assocParts.add(selectedPart);
+            assocPartTableView.setItems(assocParts);
+        }
     }
 
     @FXML
