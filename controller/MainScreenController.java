@@ -92,17 +92,22 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void partDeleteAction(ActionEvent event) {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Alert");
-        alert.setContentText("Do you want to delete the selected part?");
-        Optional<ButtonType> result = alert.showAndWait();
+        
         Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Inventory.deletePart(selectedPart);
-        }
+        if (selectedPart == null) {
+            displayAlert(3);
+        } else {
 
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Do you want to delete the selected part?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deletePart(selectedPart);
+            }
+        }
     }
 
     @FXML
@@ -164,16 +169,28 @@ public class MainScreenController implements Initializable {
     @FXML
     void productDeleteAction(ActionEvent event) {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Alert");
-        alert.setContentText("Do you want to delete the selected product?");
-        Optional<ButtonType> result = alert.showAndWait();
         Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Inventory.deleteProduct(selectedProduct);
-        }
+        if (selectedProduct == null) {
+            displayAlert(4);
+        } else {
 
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Do you want to delete the selected product?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                ObservableList<Part> assocParts = selectedProduct.getAllAssociatedParts();
+
+                if (assocParts.size() >= 1) {
+                    displayAlert(5);
+                } else {
+                    Inventory.deleteProduct(selectedProduct);
+                }
+            }
+        }
     }
 
     @FXML
@@ -245,6 +262,12 @@ public class MainScreenController implements Initializable {
             case 4:
                 alertError.setTitle("Error");
                 alertError.setHeaderText("Product not selected");
+                alertError.showAndWait();
+                break;
+            case 5:
+                alertError.setTitle("Error");
+                alertError.setHeaderText("Parts Associated");
+                alertError.setContentText("All parts must be removed from product before deletion.");
                 alertError.showAndWait();
                 break;
         }
