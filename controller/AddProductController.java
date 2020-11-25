@@ -149,7 +149,7 @@ public class AddProductController implements Initializable {
     void saveButtonAction(ActionEvent event) throws IOException {
 
         try {
-            int id = Inventory.getNewProductId();
+            int id = 0;
             String name = productNameText.getText();
             Double price = Double.parseDouble(productPriceText.getText());
             int stock = Integer.parseInt(productInventoryText.getText());
@@ -167,6 +167,7 @@ public class AddProductController implements Initializable {
                         newProduct.addAssociatedPart(part);
                     }
 
+                    newProduct.setId(Inventory.getNewProductId());
                     Inventory.addProduct(newProduct);
                     returnToMainScreen(event);
                 }
