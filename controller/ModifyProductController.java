@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
@@ -23,6 +20,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifyProductController implements Initializable {
@@ -98,11 +96,14 @@ public class ModifyProductController implements Initializable {
     @FXML
     void cancelButtonAction(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert");
+        alert.setContentText("Do you want cancel changes and return to the main screen?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            returnToMainScreen(event);
+        }
     }
 
     @FXML
@@ -121,11 +122,37 @@ public class ModifyProductController implements Initializable {
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        try {
+            int id = selectedProduct.getId();
+            String name = productNameText.getText();
+            Double price = Double.parseDouble(productPriceText.getText());
+            int stock = Integer.parseInt(productInventoryText.getText());
+            int min = Integer.parseInt(productMinText.getText());
+            int max = Integer.parseInt(productMaxText.getText());
+
+            if (name.isEmpty()) {
+                displayAlert(7);
+            } else {
+                if (minValid(min, max) && inventoryValid(min, max, stock)) {
+
+                    if (assocParts.size() == 0) {
+                        displayAlert(6);
+                    } else {
+                        Product newProduct = new Product(id, name, price, stock, min, max);
+
+                        for (Part part : assocParts) {
+                            newProduct.addAssociatedPart(part);
+                        }
+
+                        Inventory.addProduct(newProduct);
+                        Inventory.deleteProduct(selectedProduct);
+                        returnToMainScreen(event);
+                    }
+                }
+            }
+        } catch (Exception e){
+            displayAlert(1);
+        }
     }
 
     @FXML
