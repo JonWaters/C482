@@ -218,7 +218,7 @@ public class AddProductController implements Initializable {
         switch (alertType) {
             case 1:
                 alert.setTitle("Error");
-                alert.setHeaderText("Error Adding Part");
+                alert.setHeaderText("Error Adding Product");
                 alert.setContentText("Form contains blank fields or invalid values.");
                 alert.showAndWait();
                 break;
