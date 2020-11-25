@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +28,8 @@ import java.util.ResourceBundle;
 public class ModifyProductController implements Initializable {
 
     Product selectedProduct;
+
+    private ObservableList<Part> assocParts = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Part> assocPartTableView;
@@ -204,6 +208,7 @@ public class ModifyProductController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         selectedProduct = MainScreenController.getProductToModify();
+        assocParts = selectedProduct.getAllAssociatedParts();
 
         partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -215,6 +220,6 @@ public class ModifyProductController implements Initializable {
         assocPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         assocPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         assocPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        assocPartTableView.setItems(selectedProduct.getAllAssociatedParts());
+        assocPartTableView.setItems(assocParts);
     }
 }
