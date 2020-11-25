@@ -86,11 +86,6 @@ public class ModifyProductController implements Initializable {
     }
 
     @FXML
-    void partSearchTextChanged(InputMethodEvent event) {
-
-    }
-
-    @FXML
     void removeButtonAction(ActionEvent event) {
 
     }
@@ -103,6 +98,11 @@ public class ModifyProductController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    void searchBtnAction(ActionEvent event) {
+
     }
 
     @Override
