@@ -166,7 +166,7 @@ public class ModifyPartController implements Initializable {
         switch (alertType) {
             case 1:
                 alert.setTitle("Error");
-                alert.setHeaderText("Error Adding Part");
+                alert.setHeaderText("Error Modifying Part");
                 alert.setContentText("Form contains blank fields or invalid values.");
                 alert.showAndWait();
                 break;
