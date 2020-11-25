@@ -115,11 +115,30 @@ public class ModifyProductController implements Initializable {
     @FXML
     void searchBtnAction(ActionEvent event) {
 
+        ObservableList<Part> allParts = Inventory.getAllParts();
+        ObservableList<Part> partsFound = FXCollections.observableArrayList();
+        String searchString = partSearchText.getText();
+
+        for (Part part : allParts) {
+            if (String.valueOf(part.getId()).contains(searchString) ||
+                    part.getName().contains(searchString)) {
+                partsFound.add(part);
+            }
+        }
+
+        partTableView.setItems(partsFound);
+
+        if (partsFound.size() == 0) {
+            displayAlert(1);
+        }
     }
 
     @FXML
     void searchKeyPressed(KeyEvent event) {
 
+        if (partSearchText.getText().isEmpty()) {
+            partTableView.setItems(Inventory.getAllParts());
+        }
     }
 
     private void returnToMainScreen(ActionEvent event) throws IOException {
