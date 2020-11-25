@@ -104,7 +104,11 @@ public class ModifyPartController implements Initializable {
             partIdNameText.setText(((Outsourced) selectedPart).getCompanyName());
         }
 
-
-
+        partIdText.setText(String.valueOf(selectedPart.getId()));
+        partNameText.setText(selectedPart.getName());
+        partInventoryText.setText(String.valueOf(selectedPart.getStock()));
+        partPriceText.setText(String.valueOf(selectedPart.getPrice()));
+        partMaxText.setText(String.valueOf(selectedPart.getMax()));
+        partMinText.setText(String.valueOf(selectedPart.getMin()));
     }
 }
