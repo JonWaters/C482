@@ -93,31 +93,35 @@ public class AddPartController implements Initializable {
             String companyName;
             boolean partAddSuccessful = false;
 
-            if (minValid(min, max) && inventoryValid(min, max, stock)) {
+            if (name.isEmpty()) {
+                displayAlert(5);
+            } else {
+                if (minValid(min, max) && inventoryValid(min, max, stock)) {
 
-                if (inHouseRadioButton.isSelected()) {
-                    try {
-                        machineId = Integer.parseInt(partIdNameText.getText());
-                        InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
-                        newInHousePart.setId(Inventory.getNewPartId());
-                        Inventory.addPart(newInHousePart);
-                        partAddSuccessful = true;
-                    } catch (Exception e) {
-                        displayAlert(2);
+                    if (inHouseRadioButton.isSelected()) {
+                        try {
+                            machineId = Integer.parseInt(partIdNameText.getText());
+                            InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+                            newInHousePart.setId(Inventory.getNewPartId());
+                            Inventory.addPart(newInHousePart);
+                            partAddSuccessful = true;
+                        } catch (Exception e) {
+                            displayAlert(2);
+                        }
                     }
-                }
 
-                if (outsourcedRadioButton.isSelected()) {
-                    companyName = partIdNameText.getText();
-                    Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max,
-                            companyName);
-                    newOutsourcedPart.setId(Inventory.getNewPartId());
-                    Inventory.addPart(newOutsourcedPart);
-                    partAddSuccessful = true;
-                }
+                    if (outsourcedRadioButton.isSelected()) {
+                        companyName = partIdNameText.getText();
+                        Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max,
+                                companyName);
+                        newOutsourcedPart.setId(Inventory.getNewPartId());
+                        Inventory.addPart(newOutsourcedPart);
+                        partAddSuccessful = true;
+                    }
 
-                if (partAddSuccessful) {
-                    returnToMainScreen(event);
+                    if (partAddSuccessful) {
+                        returnToMainScreen(event);
+                    }
                 }
             }
         } catch(Exception e) {
@@ -184,7 +188,13 @@ public class AddPartController implements Initializable {
             case 4:
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid value for Inventory");
-                alert.setContentText("Inventory must be a number equal to or between Min and Max");
+                alert.setContentText("Inventory must be a number equal to or between Min and Max.");
+                alert.showAndWait();
+                break;
+            case 5:
+                alert.setTitle("Error");
+                alert.setHeaderText("Name Empty");
+                alert.setContentText("Name cannot be empty.");
                 alert.showAndWait();
                 break;
         }

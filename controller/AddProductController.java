@@ -157,20 +157,24 @@ public class AddProductController implements Initializable {
             int min = Integer.parseInt(productMinText.getText());
             int max = Integer.parseInt(productMaxText.getText());
 
-            if (minValid(min, max) && inventoryValid(min, max, stock)) {
+            if (name.isEmpty()) {
+                displayAlert(7);
+            } else {
+                if (minValid(min, max) && inventoryValid(min, max, stock)) {
 
-                if (assocParts.size() == 0) {
-                    displayAlert(6);
-                } else {
-                    Product newProduct = new Product(id, name, price, stock, min, max);
+                    if (assocParts.size() == 0) {
+                        displayAlert(6);
+                    } else {
+                        Product newProduct = new Product(id, name, price, stock, min, max);
 
-                    for (Part part : assocParts) {
-                        newProduct.addAssociatedPart(part);
+                        for (Part part : assocParts) {
+                            newProduct.addAssociatedPart(part);
+                        }
+
+                        newProduct.setId(Inventory.getNewProductId());
+                        Inventory.addProduct(newProduct);
+                        returnToMainScreen(event);
                     }
-
-                    newProduct.setId(Inventory.getNewProductId());
-                    Inventory.addProduct(newProduct);
-                    returnToMainScreen(event);
                 }
             }
         } catch (Exception e){
@@ -249,6 +253,12 @@ public class AddProductController implements Initializable {
                 alert.setTitle("Error");
                 alert.setHeaderText("Part not selected");
                 alert.setContentText("No part associated with product");
+                alert.showAndWait();
+                break;
+            case 7:
+                alert.setTitle("Error");
+                alert.setHeaderText("Name Empty");
+                alert.setContentText("Name cannot be empty.");
                 alert.showAndWait();
                 break;
         }
