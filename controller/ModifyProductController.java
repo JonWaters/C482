@@ -256,5 +256,12 @@ public class ModifyProductController implements Initializable {
         assocPartInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         assocPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         assocPartTableView.setItems(assocParts);
+
+        productIdText.setText(String.valueOf(selectedProduct.getId()));
+        productNameText.setText(selectedProduct.getName());
+        productInventoryText.setText(String.valueOf(selectedProduct.getStock()));
+        productPriceText.setText(String.valueOf(selectedProduct.getPrice()));
+        productMaxText.setText(String.valueOf(selectedProduct.getMax()));
+        productMinText.setText(String.valueOf(selectedProduct.getMin()));
     }
 }
