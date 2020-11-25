@@ -70,11 +70,13 @@ public class ModifyPartController implements Initializable {
     @FXML
     void inHouseRadioButtonAction(ActionEvent event) {
 
+        partIdNameLabel.setText("Machine ID");
     }
 
     @FXML
     void outsourcedRadioButtonAction(ActionEvent event) {
 
+        partIdNameLabel.setText("Company Name");
     }
 
     @FXML
