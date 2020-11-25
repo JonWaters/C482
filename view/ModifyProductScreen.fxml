@@ -38,7 +38,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField fx:id="partSearchText" layoutX="791.0" layoutY="56.0" />
+      <TextField fx:id="partSearchText" layoutX="791.0" layoutY="56.0" onKeyPressed="#searchKeyPressed" />
       <Button layoutX="838.0" layoutY="545.0" mnemonicParsing="false" onAction="#saveButtonAction" text="Save" />
       <Button layoutX="591.0" layoutY="545.0" mnemonicParsing="false" onAction="#removeButtonAction" text="Remove Associated Part" />
       <Button layoutX="896.0" layoutY="300.0" mnemonicParsing="false" onAction="#addButtonAction" text="Add" />
