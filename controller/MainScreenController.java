@@ -92,7 +92,7 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void partDeleteAction(ActionEvent event) {
-        
+
         Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
 
         if (selectedPart == null) {

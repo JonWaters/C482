@@ -135,19 +135,15 @@ public class ModifyProductController implements Initializable {
             } else {
                 if (minValid(min, max) && inventoryValid(min, max, stock)) {
 
-                    if (assocParts.size() == 0) {
-                        displayAlert(6);
-                    } else {
-                        Product newProduct = new Product(id, name, price, stock, min, max);
+                    Product newProduct = new Product(id, name, price, stock, min, max);
 
-                        for (Part part : assocParts) {
-                            newProduct.addAssociatedPart(part);
-                        }
-
-                        Inventory.addProduct(newProduct);
-                        Inventory.deleteProduct(selectedProduct);
-                        returnToMainScreen(event);
+                    for (Part part : assocParts) {
+                        newProduct.addAssociatedPart(part);
                     }
+
+                    Inventory.addProduct(newProduct);
+                    Inventory.deleteProduct(selectedProduct);
+                    returnToMainScreen(event);
                 }
             }
         } catch (Exception e){
@@ -249,12 +245,6 @@ public class ModifyProductController implements Initializable {
             case 5:
                 alert.setTitle("Error");
                 alert.setHeaderText("Part not selected");
-                alert.showAndWait();
-                break;
-            case 6:
-                alert.setTitle("Error");
-                alert.setHeaderText("Part not selected");
-                alert.setContentText("No part associated with product");
                 alert.showAndWait();
                 break;
             case 7:
