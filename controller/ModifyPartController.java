@@ -175,7 +175,7 @@ public class ModifyPartController implements Initializable {
             case 3:
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid value for Min");
-                alert.setContentText("Min must be a number greater than 1 and less than Max.");
+                alert.setContentText("Min must be a number greater than 0 and less than Max.");
                 alert.showAndWait();
                 break;
             case 4:
