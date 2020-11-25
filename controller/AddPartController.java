@@ -31,7 +31,7 @@ public class AddPartController implements Initializable {
     private ToggleGroup tgPartType;
 
     @FXML
-    private RadioButton outsouredRadioButton;
+    private RadioButton outsourcedRadioButton;
 
     @FXML
     private TextField partIdText;

@@ -31,7 +31,7 @@
          <toggleGroup>
             <ToggleGroup fx:id="tgPartType" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="outsouredRadioButton" layoutX="374.0" layoutY="150.0" mnemonicParsing="false" onAction="#outsourcedRadioButtonAction" text="Outsourced" toggleGroup="$tgPartType" />
+      <RadioButton fx:id="outsourcedRadioButton" layoutX="374.0" layoutY="150.0" mnemonicParsing="false" onAction="#outsourcedRadioButtonAction" text="Outsourced" toggleGroup="$tgPartType" />
       <TextField fx:id="partIdText" editable="false" layoutX="213.0" layoutY="201.0" />
       <TextField fx:id="partNameText" layoutX="213.0" layoutY="248.0" />
       <TextField fx:id="partInventoryText" layoutX="213.0" layoutY="292.0" />
