@@ -55,6 +55,6 @@
       <TextField fx:id="productPriceText" layoutX="128.0" layoutY="300.0" />
       <TextField fx:id="productMaxText" layoutX="128.0" layoutY="348.0" />
       <TextField fx:id="productMinText" layoutX="374.0" layoutY="348.0" />
-      <Button layoutX="725.0" layoutY="56.0" mnemonicParsing="false" text="Search" />
+      <Button layoutX="725.0" layoutY="56.0" mnemonicParsing="false" onAction="#partSearchBtnAction" text="Search" />
    </children>
 </AnchorPane>

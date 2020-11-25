@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,8 +93,32 @@ public class AddProductController implements Initializable {
     }
 
     @FXML
+    void partSearchBtnAction(ActionEvent event) {
+
+        ObservableList<Part> allParts = Inventory.getAllParts();
+        ObservableList<Part> partsFound = FXCollections.observableArrayList();
+        String searchString = partSearchText.getText();
+
+        for (Part part : allParts) {
+            if (String.valueOf(part.getId()).contains(searchString) ||
+                    part.getName().contains(searchString)) {
+                partsFound.add(part);
+            }
+        }
+
+        partTableView.setItems(partsFound);
+
+        if (partsFound.size() == 0) {
+            displayAlert(1);
+        }
+    }
+
+    @FXML
     void partSearchKeyPressed(KeyEvent event) {
 
+        if (partSearchText.getText().isEmpty()) {
+            partTableView.setItems(Inventory.getAllParts());
+        }
     }
 
     @FXML
@@ -156,9 +182,8 @@ public class AddProductController implements Initializable {
                 alert.showAndWait();
                 break;
             case 2:
-                alertInfo.setTitle("Error");
-                alertInfo.setHeaderText("Invalid value for Machine ID");
-                alert.setContentText("Machine ID may only contain numbers.");
+                alertInfo.setTitle("Information");
+                alertInfo.setHeaderText("Part not found");
                 alertInfo.showAndWait();
                 break;
             case 3:
