@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
+import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
@@ -90,7 +91,6 @@ public class AddProductController implements Initializable {
             assocParts.add(selectedPart);
             assocPartTableView.setItems(assocParts);
         }
-
     }
 
     @FXML
@@ -135,16 +135,45 @@ public class AddProductController implements Initializable {
     @FXML
     void removeButtonAction(ActionEvent event) {
 
+        Part selectedPart = assocPartTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedPart == null) {
+            displayAlert(5);
+        } else {
+            assocParts.remove(selectedPart);
+            assocPartTableView.setItems(assocParts);
+        }
     }
 
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        try {
+            int id = Inventory.getNewProductId();
+            String name = productNameText.getText();
+            Double price = Double.parseDouble(productPriceText.getText());
+            int stock = Integer.parseInt(productInventoryText.getText());
+            int min = Integer.parseInt(productMinText.getText());
+            int max = Integer.parseInt(productMaxText.getText());
+
+            if (minValid(min, max) && inventoryValid(min, max, stock)) {
+
+                if (assocParts.size() == 0) {
+                    displayAlert(6);
+                } else {
+                    Product newProduct = new Product(id, name, price, stock, min, max);
+
+                    for (Part part : assocParts) {
+                        newProduct.addAssociatedPart(part);
+                    }
+
+                    Inventory.addProduct(newProduct);
+                    returnToMainScreen(event);
+                }
+            }
+        } catch (Exception e){
+            displayAlert(1);
+        }
     }
 
     private void returnToMainScreen(ActionEvent event) throws IOException {
@@ -212,6 +241,12 @@ public class AddProductController implements Initializable {
             case 5:
                 alert.setTitle("Error");
                 alert.setHeaderText("Part not selected");
+                alert.showAndWait();
+                break;
+            case 6:
+                alert.setTitle("Error");
+                alert.setHeaderText("Part not selected");
+                alert.setContentText("No part associated with product");
                 alert.showAndWait();
                 break;
         }
