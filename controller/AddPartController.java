@@ -83,7 +83,7 @@ public class AddPartController implements Initializable {
     void saveButtonAction(ActionEvent event) throws IOException {
 
         try {
-            int id = Inventory.getNewPartId();
+            int id = 0;
             String name = partNameText.getText();
             Double price = Double.parseDouble(partPriceText.getText());
             int stock = Integer.parseInt(partInventoryText.getText());
@@ -99,6 +99,7 @@ public class AddPartController implements Initializable {
                     try {
                         machineId = Integer.parseInt(partIdNameText.getText());
                         InHouse newInHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+                        newInHousePart.setId(Inventory.getNewPartId());
                         Inventory.addPart(newInHousePart);
                         partAddSuccessful = true;
                     } catch (Exception e) {
@@ -110,6 +111,7 @@ public class AddPartController implements Initializable {
                     companyName = partIdNameText.getText();
                     Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max,
                             companyName);
+                    newOutsourcedPart.setId(Inventory.getNewPartId());
                     Inventory.addPart(newOutsourcedPart);
                     partAddSuccessful = true;
                 }
