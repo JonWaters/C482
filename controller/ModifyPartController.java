@@ -12,12 +12,17 @@ import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import model.InHouse;
+import model.Outsourced;
+import model.Part;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyPartController implements Initializable {
+
+    private Part selectedPart;
 
     @FXML
     private Label partIdNameLabel;
@@ -84,6 +89,22 @@ public class ModifyPartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        selectedPart = MainScreenController.getPartToModify();
+
+        if (selectedPart instanceof InHouse) {
+            inHouseRadioButton.setSelected(true);
+            partIdNameLabel.setText("Machine ID");
+            partIdNameText.setText(String.valueOf(((InHouse) selectedPart).getMachineId()));
+        }
+
+        if (selectedPart instanceof Outsourced){
+            outsourcedRadioButton.setSelected(true);
+            partIdNameLabel.setText("Company Name");
+            partIdNameText.setText(((Outsourced) selectedPart).getCompanyName());
+        }
+
+
 
     }
 }

@@ -106,7 +106,7 @@ public class AddPartController implements Initializable {
                     }
                 }
 
-                if (outsouredRadioButton.isSelected()) {
+                if (outsourcedRadioButton.isSelected()) {
                     companyName = partIdNameText.getText();
                     Outsourced newOutsourcedPart = new Outsourced(id, name, price, stock, min, max,
                             companyName);
