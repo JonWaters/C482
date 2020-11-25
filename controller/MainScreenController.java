@@ -110,11 +110,15 @@ public class MainScreenController implements Initializable {
 
         partToModify = partTableView.getSelectionModel().getSelectedItem();
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/ModifyPartScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        if (partToModify == null) {
+            displayAlert(3);
+        } else {
+            Parent parent = FXMLLoader.load(getClass().getResource("../view/ModifyPartScreen.fxml"));
+            Scene scene = new Scene(parent);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
@@ -177,11 +181,15 @@ public class MainScreenController implements Initializable {
 
         productToModify = productTableView.getSelectionModel().getSelectedItem();
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/ModifyProductScreen.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        if (productToModify == null) {
+            displayAlert(4);
+        } else {
+            Parent parent = FXMLLoader.load(getClass().getResource("../view/ModifyProductScreen.fxml"));
+            Scene scene = new Scene(parent);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
@@ -216,6 +224,7 @@ public class MainScreenController implements Initializable {
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alertError = new Alert(Alert.AlertType.ERROR);
 
         switch (alertType) {
             case 1:
@@ -227,6 +236,16 @@ public class MainScreenController implements Initializable {
                 alert.setTitle("Information");
                 alert.setHeaderText("Product not found");
                 alert.showAndWait();
+                break;
+            case 3:
+                alertError.setTitle("Error");
+                alertError.setHeaderText("Part not selected");
+                alertError.showAndWait();
+                break;
+            case 4:
+                alertError.setTitle("Error");
+                alertError.setHeaderText("Product not selected");
+                alertError.showAndWait();
                 break;
         }
     }
