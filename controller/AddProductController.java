@@ -141,8 +141,16 @@ public class AddProductController implements Initializable {
         if (selectedPart == null) {
             displayAlert(5);
         } else {
-            assocParts.remove(selectedPart);
-            assocPartTableView.setItems(assocParts);
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Do you want to remove the selected part?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                assocParts.remove(selectedPart);
+                assocPartTableView.setItems(assocParts);
+            }
         }
     }
 
