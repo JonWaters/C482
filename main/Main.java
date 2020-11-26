@@ -10,6 +10,16 @@ import model.Inventory;
 import model.Outsourced;
 import model.Product;
 
+/**
+ * The Inventory Management program implements an application for managing
+ * an inventory of parts and products consisting of parts. 
+ *
+ * A feature suitable for a future version would be to control which parts can be
+ * duplicated within a product.
+ *
+ * @author Jonathan Waters
+ *
+ */
 public class Main extends Application {
 
     @Override
