@@ -22,6 +22,12 @@ import model.Product;
  */
 public class Main extends Application {
 
+    /**
+     * The start method creates the FXML stage and loads the initial scene.
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
@@ -30,7 +36,13 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * The main method is the entry point of the application.
+     *
+     * The main method creates sample data and launches the application.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
 
         //Add sample parts
