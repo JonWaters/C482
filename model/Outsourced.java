@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * The Outs
+ */
 public class Outsourced extends Part {
 
     private String companyName;
