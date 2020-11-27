@@ -3,6 +3,7 @@ package model; /**
  */
 
 /**
+ * Class provided by WGU
  *
  * @author Place Your Name Here
  */
