@@ -24,62 +24,135 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class that provides control logic for the main screen of the application.
+ *
+ * A runtime error occurs if no part is selected when the user clicks the modify button.
+ * This runtime error occurs due to a null value being passed to the initialize method of the
+ * ModifyPartController. An example of correcting/preventing the runtime error from occurring
+ * can be found in the partModifyAction() method of this class.
+ *
+ * @author Jonathan Waters
+ */
 public class MainScreenController implements Initializable {
 
+    /**
+     * The part object selected in the table view by the user.
+     */
     private static Part partToModify;
 
+    /**
+     * The product object selected in the table view by the user.
+     */
     private static Product productToModify;
 
+    /**
+     * The text field for the parts search.
+     */
     @FXML
     private TextField partSearchText;
 
+    /**
+     * Table view for the parts.
+     */
     @FXML
     private TableView<Part> partTableView;
 
+    /**
+     * The ID column for the parts table.
+     */
     @FXML
     private TableColumn<Part, Integer> partIdColumn;
 
+    /**
+     * The part name column for the parts table.
+     */
     @FXML
     private TableColumn<Part, String> partNameColumn;
 
+    /**
+     * The inventory column for the parts table.
+     */
     @FXML
     private TableColumn<Part, Integer> partInventoryColumn;
 
+    /**
+     * The price column for parts table.
+     */
     @FXML
     private TableColumn<Part, Double> partPriceColumn;
 
+    /**
+     * Table text field for the product search.
+     */
     @FXML
     private TextField productSearchText;
 
+    /**
+     * Table view for the products.
+     */
     @FXML
     private TableView<Product> productTableView;
 
+    /**
+     * The ID column for the product table.
+     */
     @FXML
     private TableColumn<Product, Integer> productIdColumn;
 
+    /**
+     * The name column for the product table.
+     */
     @FXML
     private TableColumn<Product, String> productNameColumn;
 
+    /**
+     * The inventory column for the product table.
+     */
     @FXML
     private TableColumn<Product, Integer> productInventoryColumn;
 
+    /**
+     * The price column for the product table.
+     */
     @FXML
     private TableColumn<Product, Double> productPriceColumn;
 
+    /**
+     * Gets the part object selected by the user in the part table.
+     *
+     * @return A part object, null if no part selected.
+     */
     public static Part getPartToModify() {
         return partToModify;
     }
 
+    /**
+     * Gets the product object selected by the user in the product table.
+     *
+     * @return A product object, null if no product selected.
+     */
     public static Product getProductToModify() {
         return productToModify;
     }
 
+    /**
+     * Exits the program.
+     *
+     * @param event Exit button action.
+     */
     @FXML
     void exitButtonAction(ActionEvent event) {
 
         System.exit(0);
     }
 
+    /**
+     * Loads the AddPartController.
+     *
+     * @param event Add button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void partAddAction(ActionEvent event) throws IOException {
 
@@ -90,6 +163,14 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Deletes the part selected by the user in the part table.
+     *
+     * The method displays an error message if no part is selected and a confirmation
+     * dialog before deleting the selected part.
+     *
+     * @param event Part delete button action.
+     */
     @FXML
     void partDeleteAction(ActionEvent event) {
 
@@ -110,11 +191,21 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Loads the ModifyPartController.
+     *
+     * The method displays an error message if no part is selected.
+     *
+     * @param event Part modify button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void partModifyAction(ActionEvent event) throws IOException {
 
         partToModify = partTableView.getSelectionModel().getSelectedItem();
 
+        //Example of correcting a runtime error by preventing null from being passed
+        // to the ModifyPartController.
         if (partToModify == null) {
             displayAlert(3);
         } else {
@@ -126,6 +217,14 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Initiates a search based on value in parts search text field and refreshes the parts
+     * table view with search results.
+     *
+     * Parts can be searched for by ID or name.
+     *
+     * @param event Part search button action.
+     */
     @FXML
     void partSearchBtnAction(ActionEvent event) {
 
@@ -147,6 +246,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes part table view to show all parts when parts search text field is empty.
+     *
+     * @param event Parts search text field key pressed.
+     */
     @FXML
     void partSearchTextKeyPressed(KeyEvent event) {
 
@@ -156,6 +260,12 @@ public class MainScreenController implements Initializable {
 
     }
 
+    /**
+     * Loads AddProductController.
+     *
+     * @param event Add product button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void productAddAction(ActionEvent event) throws IOException {
 
@@ -166,6 +276,15 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Deletes the product selected by the user in the product table.
+     *
+     * The method displays an error message if no product is selected and a confirmation
+     * dialog before deleting the selected product. Also prevents user from deleting
+     * a product with one or more associated parts.
+     *
+     * @param event Product delete button action.
+     */
     @FXML
     void productDeleteAction(ActionEvent event) {
 
@@ -193,6 +312,14 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Loads the ModifyProductController.
+     *
+     * The method displays an error message if no product is selected.
+     *
+     * @param event Product modify button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void productModifyAction(ActionEvent event) throws IOException {
 
@@ -209,6 +336,14 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Initiates a search based on value in products search text field and refreshes the products
+     * table view with search results.
+     *
+     * Products can be searched for by ID or name.
+     *
+     * @param event Part search button action.
+     */
     @FXML
     void productSearchBtnAction(ActionEvent event) {
 
@@ -230,6 +365,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes product table view to show all products when products search text field is empty.
+     *
+     * @param event Products search text field key pressed.
+     */
     @FXML
     void productSearchTextKeyPressed(KeyEvent event) {
 
