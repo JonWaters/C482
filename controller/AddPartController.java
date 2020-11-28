@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Controller class that provides control logic for the add part sceen of the application.
+ * Controller class that provides control logic for the add part screen of the application.
  *
  * @author Jonathan Waters
  */
