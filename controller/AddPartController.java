@@ -19,41 +19,85 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class that provides control logic for the add part sceen of the application.
+ *
+ * @author Jonathan Waters
+ */
 public class AddPartController implements Initializable {
 
+    /**
+     * The machine ID/comapny name label for the part.
+     */
     @FXML
     private Label partIdNameLabel;
 
+    /**
+     * The in-house radio button.
+     */
     @FXML
     private RadioButton inHouseRadioButton;
 
+    /**
+     * The toggle group for the radio buttons.
+     */
     @FXML
     private ToggleGroup tgPartType;
 
+    /**
+     * The outsourced radio button.
+     */
     @FXML
     private RadioButton outsourcedRadioButton;
 
+    /**
+     * The part ID text field.
+     */
     @FXML
     private TextField partIdText;
 
+    /**
+     * The part name text field.
+     */
     @FXML
     private TextField partNameText;
 
+    /**
+     * The part inventory text field.
+     */
     @FXML
     private TextField partInventoryText;
 
+    /**
+     * The part price text field.
+     */
     @FXML
     private TextField partPriceText;
 
+    /**
+     * The part maximum level text field.
+     */
     @FXML
     private TextField partMaxText;
 
+    /**
+     * The machine ID/company name text field for the part.
+     */
     @FXML
     private TextField partIdNameText;
 
+    /**
+     * The part minimum level text field.
+     */
     @FXML
     private TextField partMinText;
 
+    /**
+     * Displays confirmation dialog and loads MainScreenController.
+     *
+     * @param event Cancel button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void cancelButtonAction(ActionEvent event) throws IOException {
 
@@ -67,18 +111,37 @@ public class AddPartController implements Initializable {
         }
     }
 
+    /**
+     * Sets machine ID/company name label to "Machine ID".
+     *
+     * @param event In-house raido button action.
+     */
     @FXML
     void inHouseRadioButtonAction(ActionEvent event) {
 
         partIdNameLabel.setText("Machine ID");
     }
 
+    /**
+     * Sets machine ID/company name label to "Company Name".
+     *
+     * @param event Outsourced radio button.
+     */
     @FXML
     void outsourcedRadioButtonAction(ActionEvent event) {
 
         partIdNameLabel.setText("Company Name");
     }
 
+    /**
+     * Adds new part to inventory and loads MainScreenController.
+     *
+     * Text fields are validated with error messages displayed preventing empty and/or
+     * invalid values.
+     *
+     * @param event Save button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
@@ -129,6 +192,12 @@ public class AddPartController implements Initializable {
         }
     }
 
+    /**
+     * Loads MainScreenController.
+     *
+     * @param event Passed from parent method.
+     * @throws IOException From FXMLLoader.
+     */
     private void returnToMainScreen(ActionEvent event) throws IOException {
 
         Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
@@ -138,6 +207,13 @@ public class AddPartController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Validates that min is greater than 0 and less than or equal to max.
+     *
+     * @param min The minimum value for the part.
+     * @param max The maximum value for the part.
+     * @return Boolean indicating if min is valid.
+     */
     private boolean minValid(int min, int max) {
 
         boolean isValid = true;
@@ -150,6 +226,14 @@ public class AddPartController implements Initializable {
         return isValid;
     }
 
+    /**
+     * Validates that inventory level is equal too or between min and max.
+     *
+     * @param min The minimum value for the part.
+     * @param max The maximum value for the part.
+     * @param stock The inventory level for the part.
+     * @return Boolean indicating if inventory is valid.
+     */
     private boolean inventoryValid(int min, int max, int stock) {
 
         boolean isValid = true;
@@ -162,6 +246,11 @@ public class AddPartController implements Initializable {
         return isValid;
     }
 
+    /**
+     * Displays various alert messages.
+     *
+     * @param alertType Alert message selector.
+     */
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -200,6 +289,12 @@ public class AddPartController implements Initializable {
         }
     }
 
+    /**
+     * Sets in-house radio button to true.
+     * 
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
