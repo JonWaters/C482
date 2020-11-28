@@ -378,6 +378,11 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Displays various alert messages.
+     *
+     * @param alertType Alert message selector.
+     */
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -413,6 +418,12 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Initializes and populates table views.
+     * 
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
