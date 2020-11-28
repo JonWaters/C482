@@ -23,63 +23,132 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class that provides control logic for the modify product screen of the application.
+ *
+ * @author Jonathan Waters
+ */
 public class ModifyProductController implements Initializable {
 
+    /**
+     * The product object selected in the MainScreenController.
+     */
     Product selectedProduct;
 
+    /**
+     * A list of parts associated with the product.
+     */
     private ObservableList<Part> assocParts = FXCollections.observableArrayList();
 
+    /**
+     * The associated parts table view.
+     */
     @FXML
     private TableView<Part> assocPartTableView;
 
+    /**
+     * The part ID column for the associated parts table.
+     */
     @FXML
     private TableColumn<Part, Integer> assocPartIdColumn;
 
+    /**
+     * The part name column for the associated parts table.
+     */
     @FXML
     private TableColumn<Part, String> assocPartNameColumn;
 
+    /**
+     * The inventory level column for the associated parts table.
+     */
     @FXML
     private TableColumn<Part, Integer> assocPartInventoryColumn;
 
+    /**
+     * The part price column for the associated parts table.
+     */
     @FXML
     private TableColumn<Part, Double> assocPartPriceColumn;
 
+    /**
+     * The all parts table view.
+     */
     @FXML
     private TableView<Part> partTableView;
 
+    /**
+     * The part ID column for all parts table.
+     */
     @FXML
     private TableColumn<Part, Integer> partIdColumn;
 
+    /**
+     * The part name column for the all parts table.
+     */
     @FXML
     private TableColumn<Part, String> partNameColumn;
 
+    /**
+     * The inventory level column for the all parts table.
+     */
     @FXML
     private TableColumn<Part, Integer> partInventoryColumn;
 
+    /**
+     * The part price column for the all parts table.
+     */
     @FXML
     private TableColumn<Part, Double> partPriceColumn;
 
+    /**
+     * The part search text field.
+     */
     @FXML
     private TextField partSearchText;
 
+    /**
+     * The product ID text field.
+     */
     @FXML
     private TextField productIdText;
 
+    /**
+     * The product name text field.
+     */
     @FXML
     private TextField productNameText;
 
+    /**
+     * The product inventory level text field.
+     */
     @FXML
     private TextField productInventoryText;
 
+    /**
+     * The product price text field.
+     */
     @FXML
     private TextField productPriceText;
 
+    /**
+     * The product maximum level text field.
+     */
     @FXML
     private TextField productMaxText;
 
+    /**
+     * The product minimum level text field.
+     */
     @FXML
     private TextField productMinText;
 
+    /**
+     * Adds part object selected in the all parts table to the associated parts table.
+     *
+     * Displays error message if no part is selected.
+     *
+     * @param event Add button action.
+     */
     @FXML
     void addButtonAction(ActionEvent event) {
 
@@ -93,6 +162,12 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Displays confirmation dialog and loads MainScreenController.
+     *
+     * @param event Cancel button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void cancelButtonAction(ActionEvent event) throws IOException {
 
@@ -106,6 +181,13 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Displays confirmation dialog and removes selected part from associated parts table.
+     *
+     * Displays error message if no part is selected.
+     *
+     * @param event Remove button action.
+     */
     @FXML
     void removeButtonAction(ActionEvent event) {
 
@@ -127,6 +209,15 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Replaces product in inventory and loads MainScreenController.
+     *
+     * Text fields are validated with error messages displayed preventing empty and/or
+     * invalid values.
+     *
+     * @param event Save button action.
+     * @throws IOException From FXMLLoader.
+     */
     @FXML
     void saveButtonAction(ActionEvent event) throws IOException {
 
@@ -159,6 +250,14 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Initiates a search based on value in parts search text field and refreshes the parts
+     * table view with search results.
+     *
+     * Parts can be searched for by ID or name.
+     *
+     * @param event Part search button action.
+     */
     @FXML
     void searchBtnAction(ActionEvent event) {
 
@@ -180,6 +279,11 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes part table view to show all parts when parts search text field is empty.
+     *
+     * @param event Parts search text field key pressed.
+     */
     @FXML
     void searchKeyPressed(KeyEvent event) {
 
@@ -188,6 +292,12 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Loads MainScreenController.
+     *
+     * @param event Passed from parent method.
+     * @throws IOException From FXMLLoader.
+     */
     private void returnToMainScreen(ActionEvent event) throws IOException {
 
         Parent parent = FXMLLoader.load(getClass().getResource("../view/MainScreen.fxml"));
@@ -197,6 +307,13 @@ public class ModifyProductController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Validates that min is greater than 0 and less than max.
+     *
+     * @param min The minimum value for the part.
+     * @param max The maximum value for the part.
+     * @return Boolean indicating if min is valid.
+     */
     private boolean minValid(int min, int max) {
 
         boolean isValid = true;
@@ -209,6 +326,14 @@ public class ModifyProductController implements Initializable {
         return isValid;
     }
 
+    /**
+     * Validates that inventory level is equal too or between min and max.
+     *
+     * @param min The minimum value for the part.
+     * @param max The maximum value for the part.
+     * @param stock The inventory level for the part.
+     * @return Boolean indicating if inventory is valid.
+     */
     private boolean inventoryValid(int min, int max, int stock) {
 
         boolean isValid = true;
@@ -221,6 +346,11 @@ public class ModifyProductController implements Initializable {
         return isValid;
     }
 
+    /**
+     * Displays various alert messages.
+     *
+     * @param alertType Alert message selector.
+     */
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -264,6 +394,12 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Initializes controller and populates text fields with product selected in MainScreenController.
+     *
+     * @param location The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

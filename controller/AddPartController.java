@@ -208,7 +208,7 @@ public class AddPartController implements Initializable {
     }
 
     /**
-     * Validates that min is greater than 0 and less than or equal to max.
+     * Validates that min is greater than 0 and less than max.
      *
      * @param min The minimum value for the part.
      * @param max The maximum value for the part.

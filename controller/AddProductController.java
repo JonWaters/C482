@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 /**
  * Controller class that provides control logic for the add product screen of the application.
+ *
+ * @author Jonathan Waters
  */
 public class AddProductController implements Initializable {
 
@@ -136,7 +138,7 @@ public class AddProductController implements Initializable {
     private TextField productMinText;
 
     /**
-     * Add part object selected in the all parts table to the associated parts table.
+     * Adds part object selected in the all parts table to the associated parts table.
      *
      * Displays error message if no part is selected.
      *
@@ -301,7 +303,7 @@ public class AddProductController implements Initializable {
     }
 
     /**
-     * Validates that min is greater than 0 and less than or equal to max.
+     * Validates that min is greater than 0 and less than max.
      *
      * @param min The minimum value for the part.
      * @param max The maximum value for the part.
